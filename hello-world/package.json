@@ -15,7 +15,15 @@
         "panel"
     ],
     "dependencies": {
+        "@adobe/react-spectrum": "^3.36.3",
         "@swc-react/button": "0.39.4",
+        "@swc-react/button-group": "^0.39.4",
+        "@swc-react/field-label": "^0.39.4",
+        "@swc-react/menu": "^0.39.4",
+        "@swc-react/picker": "^0.39.4",
+        "@swc-react/slider": "^0.39.4",
+        "@swc-react/swatch": "^0.39.4",
+        "@swc-react/switch": "^0.39.4",
         "@swc-react/theme": "0.39.4",
         "react": "18.2.0",
         "react-dom": "18.2.0"
