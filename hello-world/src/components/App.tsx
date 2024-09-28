@@ -13,10 +13,10 @@ import "./App.css";
 import { AddOnSDKAPI } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 
 const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
-    const [buttonLabel, setButtonLabel] = useState("Click me");
+    const [uploadLabel, setUploadLabel] = useState("Upload");
 
-    function handleClick() {
-        setButtonLabel("Clicked");
+    function handleUploadClick() {
+        setUploadLabel("Uploaded");
     }
 
     return (
@@ -24,8 +24,13 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
         <Theme theme="express" scale="medium" color="light">
             <div className="container">
-                <Button size="m" onClick={handleClick}>
-                    {buttonLabel}
+                <Button size="m" onClick={handleUploadClick}>
+                    {uploadLabel}
+                </Button>
+            </div>
+            <div className="container">
+                <Button size="m" onClick={handleUploadClick}>
+                    {uploadLabel}
                 </Button>
             </div>
         </Theme>
