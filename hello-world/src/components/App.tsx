@@ -25,6 +25,9 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
 
     let[selected, setSelected] = React.useState<Selection>(new Set([]));
 
+    //the ID of the selected language
+    const selectedLang = selected === 'all' ? 'all' : [...selected]
+
     return (
         // Please note that the below "<Theme>" component does not react to theme changes in Express.
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
@@ -127,7 +130,7 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
                 <div>
                     {/* currently selected item */}
                     Your video will be translated into:  
-                    {selected === 'all' ? 'all' : [...selected]}
+                    {selectedLang}
                     {/* use selected language and put it into translation so it'll translate it to the lang
                     translate[en, selected] idk */}
                 </div>
