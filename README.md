@@ -135,4 +135,3 @@ async function listObjectsInTranscriptionBucket(s3Client) {
   return sendCommand.Contents;
 }
 ```
-

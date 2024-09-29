@@ -16,6 +16,10 @@
     ],
     "dependencies": {
         "@adobe/react-spectrum": "^3.36.3",
+        "@fortawesome/fontawesome-svg-core": "^6.6.0",
+        "@fortawesome/free-solid-svg-icons": "^6.6.0",
+        "@fortawesome/react-fontawesome": "^0.2.2",
+        "@spectrum-icons/illustrations": "^3.6.15",
         "@swc-react/button": "0.39.4",
         "@swc-react/button-group": "^0.39.4",
         "@swc-react/field-label": "^0.39.4",
@@ -26,7 +30,9 @@
         "@swc-react/switch": "^0.39.4",
         "@swc-react/theme": "0.39.4",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-aria-components": "^1.3.3",
+        "react-dom": "18.2.0",
+        "react-spinners": "^0.14.1"
     },
     "devDependencies": {
         "@adobe/ccweb-add-on-scripts": "^2.4.1",
