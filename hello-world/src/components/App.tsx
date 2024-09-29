@@ -127,7 +127,9 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
                 <div>
                     {/* currently selected item */}
                     Your video will be translated into:  
-                    {selected === 'all' ? 'all' : [...selected].join(', ')}
+                    {selected === 'all' ? 'all' : [...selected]}
+                    {/* use selected language and put it into translation so it'll translate it to the lang
+                    translate[en, selected] idk */}
                 </div>
             </div>
         </Theme>
