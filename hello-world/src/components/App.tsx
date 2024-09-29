@@ -22,6 +22,7 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
     let [badgeHover, setBadgeHover] = useState(false);
     let [isFilled, setIsFilled] = React.useState(false);
     let [fileName, setFileName] = useState("");
+    let [fileSize, setFileSize] = useState(0);
     let [translatedCaptions, setTranslatedCaptions] = useState("");
     let [selected, setSelected] = React.useState<Selection>(new Set([]));
 
@@ -145,7 +146,7 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
             <div className="container">
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: "10px"}}>
                     <Badge variant="info">
-                        {selected}
+                        {(Math.floor(fileSize/1000)).toLocaleString()} KB
                     </Badge>
                     <div onMouseOver={() => setBadgeHover(true)} onMouseOut={() => setBadgeHover(false)} onClick={() => setIsFilled(false)}>
                         {!badgeHover ?
@@ -175,11 +176,12 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
                     isFilled={isFilled}
                     onDrop={async (e) => {
                         e.items.find(async (item) => {
-                        if (item.kind === 'file' && (item.type === 'video/mp4' || item.type === 'audio/mpeg' || item.type === 'video/quicktime' || item.type === 'image/jpeg')) {
+                        if (item.kind === 'file' && (item.type === 'video/mp4' || item.type === 'audio/mpeg' || item.type === 'video/quicktime')) {
                             setFileName(item.name);
                             setIsFilled(true);
                             try {
                                 const file = await item.getFile();
+                                setFileSize(file.size);
                                 const langCode = Array.from(selected)[0];
                                 handleDrop(file, item, langCode);
                             } catch (error) {
