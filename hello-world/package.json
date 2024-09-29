@@ -19,6 +19,7 @@
         "@fortawesome/fontawesome-svg-core": "^6.6.0",
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
         "@fortawesome/react-fontawesome": "^0.2.2",
+        "@spectrum-icons/illustrations": "^3.6.15",
         "@swc-react/button": "0.39.4",
         "@swc-react/theme": "0.39.4",
         "react": "18.2.0",
