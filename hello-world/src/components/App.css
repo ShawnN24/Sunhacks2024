@@ -146,12 +146,12 @@
   
   .react-aria-ListBoxItem {
     margin: 2px;
-    padding: 0.286rem 0.571rem;
+    padding: 1px;
     border-radius: 6px;
     outline: none;
     cursor: default;
     color: var(--text-color);
-    font-size: 1.072rem;
+    font-size: 15px;
     position: relative;
     display: flex;
     flex-direction: column;

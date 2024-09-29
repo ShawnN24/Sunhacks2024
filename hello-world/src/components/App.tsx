@@ -39,10 +39,6 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
                 <TextArea width={"100%"} height={window.innerHeight*.5}>
                 </TextArea>
             </div>
-            <div>
-                <Header>Select your language to translate to:
-                </Header> 
-            </div>
             {/* make the list of languages */}
             <div className="container"> 
                 <ListBox
@@ -130,6 +126,7 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
                 </ListBox>
                 <div>
                     {/* currently selected item */}
+                    Your video will be translated into:  
                     {selected === 'all' ? 'all' : [...selected].join(', ')}
                 </div>
             </div>
