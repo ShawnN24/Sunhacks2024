@@ -19,27 +19,22 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
     const [isLoading, setIsLoading] = useState(false);
-    let [lang, setLang] = useState("en");
     let [badgeHover, setBadgeHover] = useState(false);
     let [isFilled, setIsFilled] = React.useState(false);
     let [fileName, setFileName] = useState("");
     let [translatedCaptions, setTranslatedCaptions] = useState("");
     let [selected, setSelected] = React.useState<Selection>(new Set([]));
 
-    const handleDrop = async (file: File, item: FileDropItem) => {
+    const handleDrop = async (file: File, item: FileDropItem, langCode) => {
         setIsLoading(true);
-
         const fileContent = await base64Converter(file);
-        console.log("file64: "+fileContent);
-        console.log("fileName: "+item.name);
-        console.log("lang: "+selected);
 
         try {
             const response = await fetch('https://tad245c4ttgwwajmaeanppmrpm0pkocb.lambda-url.us-east-2.on.aws/', {
               method: 'POST',
               body: JSON.stringify({
                 name: item.name,
-                targetLanguage: selected,
+                targetLanguage: langCode,
                 file: fileContent
               }),
               headers: {
@@ -51,7 +46,6 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
             }
             const result = await response.json();
             setTranslatedCaptions(result.translation);
-            console.log(result.translation);
         } catch (error) {
             console.error('Error sending file:', error);
         } finally {
@@ -61,15 +55,8 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
 
     return (
         <Theme theme="express" scale="medium" color="light">
-            {/* make the list of languages */}
             <div className="container"> 
-                <span>
-                    {/* currently selected item */}
-                    Translate Your Video Into: 
-                    {selected === 'all' ? 'all' : [...selected]}
-                    {/* use selected language and put it into translation so it'll translate it to the lang
-                    translate[en, selected] idk */}
-                </span>
+                <span>Translate Your Video Into:</span>
                 <ListBox
                 aria-label="Languages"
                 selectionMode="single"
@@ -173,39 +160,55 @@ const App = ({ addOnUISdk }: { addOnUISdk: AddOnSDKAPI }) => {
                     </div>
                 </div>
                 {isLoading ?
-                    <div className="container" style={{flex: 1, justifySelf: 'center', alignSelf: 'center', marginTop: window.innerHeight*.37}}>
+                    <div className="container" style={{flex: 1, justifySelf: 'center', alignSelf: 'center', marginTop: window.innerHeight*.25}}>
                         <BeatLoader size={25} />
                     </div>
                 :
-                    <TextArea width={"100%"} height={window.innerHeight*.75} value={translatedCaptions} />
+                    <TextArea width={"100%"} height={window.innerHeight*.50} value={translatedCaptions} />
                 }
             </div>
             :
             <div className="container">
+                {Array.from(selected)[0] ?
                 <DropZone
                     maxWidth="size-3000"
                     isFilled={isFilled}
                     onDrop={async (e) => {
                         e.items.find(async (item) => {
-                          if (item.kind === 'file' && (item.type === 'video/mp4' || item.type === 'audio/mpeg' || item.type === 'video/quicktime' || item.type === 'image/jpeg')) {
+                        if (item.kind === 'file' && (item.type === 'video/mp4' || item.type === 'audio/mpeg' || item.type === 'video/quicktime' || item.type === 'image/jpeg')) {
                             setFileName(item.name);
                             setIsFilled(true);
                             try {
                                 const file = await item.getFile();
-                                handleDrop(file, item);
+                                const langCode = Array.from(selected)[0];
+                                handleDrop(file, item, langCode);
                             } catch (error) {
                                 console.error('Error fetching file:', error);
                             }
-                          }
+                        }
                         });
-                      }}>
+                    }}>
                     <IllustratedMessage>
                         <Upload />
                         <Heading>
-                            Drag and drop your file
+                            Drag And Drop Your Video/Audio
                         </Heading>
                     </IllustratedMessage>
                 </DropZone>
+                :
+                <div style={{backgroundColor: "lightgrey", borderRadius: "2%"}}>
+                    <DropZone
+                        maxWidth="size-3000"
+                        >
+                        <IllustratedMessage>
+                            <Upload />
+                            <Heading>
+                                Please Select A Language
+                            </Heading>
+                        </IllustratedMessage>
+                    </DropZone>
+                </div>
+                }
             </div>
             }
         </Theme>
